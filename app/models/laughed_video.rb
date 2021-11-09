@@ -1,0 +1,2 @@
+class LaughedVideo < ApplicationRecord
+end
