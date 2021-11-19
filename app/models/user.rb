@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :videos, dependent: :nullify
+  has_many :laughed_videos, dependent: :destroy
+  has_many :game_results, dependent: :destroy
+
   enum role: { general: 0, admin: 1 }
 
   def self.find_or_create_from_auth(auth)
