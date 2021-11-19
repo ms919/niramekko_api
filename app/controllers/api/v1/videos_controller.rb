@@ -1,12 +1,15 @@
 module Api
   module V1
     class VideosController < ApplicationController
+      before_action :logged_in?
+
+      def new; end
       def create
-        video = Video.new(video_params)
+        video = current_user.videos.build(video_params)
         if video.save
           render json: video, status: :created
         else
-          render json: video.errors, status: :unprocessable_entity
+          render status: :unprocessable_entity
         end
       end
 
