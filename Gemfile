@@ -42,3 +42,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # login
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
