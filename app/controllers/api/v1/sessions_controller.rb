@@ -4,8 +4,10 @@ module Api
       def create
         user = User.find_or_create_from_auth(request.env['omniauth.auth'])
         session[:user_id] = user.id
+        # byebug
         # redirect_to "http://localhost:8080/user"
-        redirect_to Rails.application.credentials.production[:auth_user_url]
+        redirect_to "http://lvh.me:8080/user"
+        # redirect_to Rails.application.credentials.production[:auth_user_url]
       end
       def destroy
         reset_session

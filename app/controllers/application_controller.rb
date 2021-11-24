@@ -6,6 +6,7 @@ class ApplicationController < ActionController::API
     current_user ||= User.find(session[:user_id])
   end
   def logged_in?
+    # byebug
     render status: :unauthorized unless !!session[:user_id]
   end
 end
