@@ -14,5 +14,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       }
     }
   provider :google_oauth2, Rails.application.credentials.dig(:omniauth, :google, :client_id), Rails.application.credentials.dig(:omniauth, :google, :client_secret)
-  provider :tiktok, Rails.application.credentials.dig(:omniauth, :tiktok, :app_id), Rails.application.credentials.dig(:omniauth, :tiktok, :secret)
+  provider :tiktok, Rails.application.credentials.dig(:omniauth, :tiktok, :client_key), Rails.application.credentials.dig(:omniauth, :tiktok, :client_secret)
 end
