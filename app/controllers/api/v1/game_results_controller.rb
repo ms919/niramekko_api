@@ -3,6 +3,7 @@ module Api
     class GameResultsController < ApplicationController
       def create
         game_results = GameResult.new(game_results_params)
+        game_results.user_id = current_user.id
         if game_results.save
           render json: game_results, status: :created
         else

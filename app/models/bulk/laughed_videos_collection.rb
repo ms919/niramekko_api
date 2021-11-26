@@ -1,27 +1,26 @@
 class Bulk::LaughedVideosCollection < Bulk::Base
   attr_accessor :collection
 
-  def initialize(attributes)
-    # byebug
+  def initialize(attributes, user_id)
     if attributes.present?
       self.collection = attributes.map do |value|
         LaughedVideo.new(
           video_id: value['video_id'],
-          score_diff: value['score_diff']
+          score_diff: value['score_diff'],
+          user_id: user_id
         )
       end
     end
   end
 
   def save
-    # byebug
     is_success = true
     ActiveRecord::Base.transaction do
       collection.each do |result|
-        # バリデーションを全てかけたいからsave!ではなくsaveを使用
+        # バリデーションを全てかけるためsaveを使用
         is_success = false unless result.save
       end
-      # バリデーションエラーがあった時は例外を発生させてロールバックさせる
+      # バリデーションエラーがあれば例外発生×ロールバックさせる
       raise ActiveRecord::RecordInvalid unless is_success
     end
     rescue => e
