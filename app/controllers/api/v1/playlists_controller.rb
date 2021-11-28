@@ -6,9 +6,9 @@ module Api
         when GameResult.modes[:normal] then
           videos = Video.order("RANDOM()").limit(5)
         when GameResult.modes[:dojyo] then
-          videos = Video.where(latest_top_flg: true).limit(5)
+          videos = Video.where(latest_top_flg: true).order("RANDOM()").limit(5)
         when GameResult.modes[:revenge] then
-          videos = Video.revenge_playlists(current_user.id).limit(5)
+          videos = Video.revenge_playlists(current_user.id).order("RANDOM()").limit(5)
         end
         render json: videos
       end
