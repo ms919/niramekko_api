@@ -34,7 +34,8 @@ module Api
     # config.eager_load_paths << Rails.root.join("extras")
 
     # session settings for auth
-    config.session_store :cookie_store
+    # config.session_store :cookie_store, domain: Rails.application.credentials.production[:domain]
+    config.session_store :cookie_store, key: '_app_session', domain: :all, tld_length: ActionDispatch::Http::URL.tld_length + 1
     config.middleware.use ActionDispatch::Cookies # Required for all session management
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
