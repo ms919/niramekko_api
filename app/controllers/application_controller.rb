@@ -6,6 +6,6 @@ class ApplicationController < ActionController::API
     current_user ||= User.find(session[:user_id])
   end
   def logged_in?
-    render status: :unauthorized unless !!session[:user_id]
+    session[:user_id] ? true : false
   end
 end

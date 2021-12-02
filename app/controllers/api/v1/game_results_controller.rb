@@ -1,20 +1,57 @@
 module Api
   module V1
     class GameResultsController < ApplicationController
+      include TITLES
+
       def create
-        game_results = GameResult.new(game_results_params)
-        game_results.user_id = current_user.id
-        if game_results.save
-          render json: game_results, status: :created
+        if logged_in?
+          game_result = current_user.game_results.build(game_results_params)
         else
-          render json: game_results.errors, status: :unprocessable_entity
+          game_result = GameResult.new(game_results_params)
+        end
+
+        game_result.title_id = calc_title_id(game_result.mode_before_type_cast, game_result.score)
+
+        if game_result.save!
+          render json: { name: I18n.t('title.names')[game_result.title_id], tweet_text: I18n.t('title.tweet_text')[game_result.title_id] }
+        else
+          render status: :unprocessable_entity
         end
       end
 
       private
 
       def game_results_params
-        params.require(:game_result).permit(:title_id, :mode, :score)
+        params.require(:game_result).permit(:mode, :score)
+      end
+
+      def calc_title_id(mode, score)
+        case mode
+        when GameResult.modes[:normal] then
+          if score >= SUBTRACTION_LEVELS[GOLD]
+            return GOLD
+          elsif score >= SUBTRACTION_LEVELS[IRON]
+            return IRON
+          elsif score >= SUBTRACTION_LEVELS[SOIL]
+            return SOIL
+          elsif score >= SUBTRACTION_LEVELS[SMILE]
+            return SMILE
+          elsif score < SUBTRACTION_LEVELS[SMILE]
+            return LAUGH
+          end
+        when GameResult.modes[:dojyo], GameResult.modes[:revenge] then
+          if score == ADDITION_LEVELS[GOLD]
+            return GOLD
+          elsif score == ADDITION_LEVELS[IRON]
+            return IRON
+          elsif score == ADDITION_LEVELS[SOIL]
+            return SOIL
+          elsif score == ADDITION_LEVELS[SMILE]
+            return SMILE
+          elsif score < ADDITION_LEVELS[SMILE]
+            return LAUGH
+          end
+        end
       end
     end
   end
