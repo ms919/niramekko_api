@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :laughed_videos, dependent: :destroy
   has_many :game_results, dependent: :destroy
   has_many :user_notifications, dependent: :destroy
+  has_many :hidden_videos, dependent: :destroy
 
   enum role: { general: 0, admin: 1 }
 
