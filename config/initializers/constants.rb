@@ -9,17 +9,10 @@ module TITLES
     LAUGH = 4
   ].freeze
 
-  SUBTRACTION_LEVELS = [
+  SCORE_LEVELS = [
     95,
     75,
     65,
-    40
-  ].freeze
-
-  ADDITION_LEVELS = [
-    100,
-    80,
-    60,
     40
   ].freeze
 end
