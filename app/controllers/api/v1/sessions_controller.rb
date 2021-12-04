@@ -2,18 +2,21 @@ module Api
   module V1
     class SessionsController < ApplicationController
       def create
-        user = User.find_or_create_from_auth(request.env['omniauth.auth'])
+        t = Time.current
+        user = User.find_by(token: session_params[:token], updated_at: t - 60 ... t)
         session[:user_id] = user.id
-        # redirect_to "http://localhost:8080/user"
-        # redirect_to "http://lvh.me:8080/user"
-        redirect_to Rails.application.credentials.production[:auth_user_url]
+        render status: :created
       end
+
       def destroy
         reset_session
         head :ok
       end
-      def failure
-        render status: :bad_request
+
+      private
+
+      def session_params
+        params.require(:session).permit(:token)
       end
     end
   end

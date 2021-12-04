@@ -8,9 +8,10 @@ Rails.application.routes.draw do
       resources :laughed_videos, only: [:create]
       resources :hidden_videos, only: [:create]
       resource :user, only: [:show]
-      get 'auth/:provider/callback', to: 'sessions#create'
-      get 'logout', to: 'sessions#destroy'
-      get 'auth/failure', to: 'sessions#failure'
+      get 'auth/:provider/callback', to: 'auth#create'
+      get 'auth/failure', to: 'auth#failure'
+      post 'login', to: 'sessions#create'
+      delete 'logout', to: 'sessions#destroy'
     end
   end
 end
