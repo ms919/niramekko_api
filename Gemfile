@@ -28,6 +28,13 @@ gem 'rack-cors'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Code analyze
+  gem 'brakeman', require: false
+  gem 'bullet'
+  gem 'rails_best_practices'
+  gem 'rubocop'
+  gem 'rubocop-checkstyle_formatter'
+  gem 'rubocop-rails'
 end
 
 group :development do
