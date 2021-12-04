@@ -9,11 +9,10 @@ module Api
         else
           game_result = GameResult.new(game_results_params)
         end
-
-        game_result.title_id = calc_title_id(game_result.score)
+        game_result.title = calc_title(game_result.score)
 
         if game_result.save!
-          render json: { name: I18n.t('title.names')[game_result.title_id], tweet_text: I18n.t('title.tweet_text')[game_result.title_id] }
+          render json: { name: I18n.t("title.names.#{game_result.title}"), tweet_text: I18n.t("title.tweet_text.#{game_result.title}") }
         else
           render status: :unprocessable_entity
         end
@@ -25,7 +24,7 @@ module Api
         params.require(:game_result).permit(:mode, :score)
       end
 
-      def calc_title_id(score)
+      def calc_title(score)
         if score >= SCORE_LEVELS[GOLD]
           return GOLD
         elsif score >= SCORE_LEVELS[IRON]
