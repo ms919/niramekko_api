@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_04_073553) do
+ActiveRecord::Schema.define(version: 2021_12_05_043517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_04_073553) do
   create_table "game_results", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "mode", null: false
-    t.integer "score", null: false
+    t.float "score", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "title", null: false
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_12_04_073553) do
   create_table "laughed_videos", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "video_id", null: false
-    t.integer "score_diff", null: false
+    t.float "score_diff", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_laughed_videos_on_user_id"
