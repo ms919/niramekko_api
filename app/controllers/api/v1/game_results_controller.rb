@@ -12,7 +12,7 @@ module Api
         game_result.title = calc_title(game_result.score)
 
         if game_result.save!
-          render json: { name: I18n.t("title.names.#{game_result.title}"), tweet_text: I18n.t("title.tweet_text.#{game_result.title}") }
+          render json: game_result.title_before_type_cast
         else
           render status: :unprocessable_entity
         end
