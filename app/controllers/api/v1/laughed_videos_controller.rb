@@ -5,7 +5,7 @@ module Api
         user_id = logged_in? ? current_user.id : nil
         laughed_videos = Bulk::LaughedVideosCollection.new(laughed_videos_params, user_id)
         if laughed_videos.save
-          session[:revenge_flg] = Video.revenge_playlists(user_id).length >= 3 if !session[:revenge_flg] && logged_in?
+          session[:revenge_flg] = Video.filter_hidden_videos(user_id).revenge_playlists(user_id).length >= 3 if !session[:revenge_flg] && logged_in?
           render json: { revenge_flg: session[:revenge_flg] }
         else
           render status: :unprocessable_entity
