@@ -5,6 +5,7 @@ class Video < ApplicationRecord
 
   scope :filter_hidden_videos, -> (user_id){ where.not(id: HiddenVideo.select(:video_id).where(user_id: user_id)) }
   scope :revenge_playlists, -> (user_id){ joins(:laughed_videos).where(laughed_videos: {user_id: user_id}).group(:id) }
+  scope :playlist_order, -> { order("RANDOM()").limit(5) }
 
   validates :user_id, presence: true, on: :create
   validates :video_user, presence: true, length: { maximum: 24 }  # tiktok usernameのMax
