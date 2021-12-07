@@ -1,9 +1,9 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :filter_unauthenticated
+
       def show
-        # 未ログインならエラーを返す
-        render status: :unauthorized unless logged_in?
         # userページ表示に必要な情報を集める
         user_id = current_user.id
         user = User.select(:name, :image_url).find(user_id)

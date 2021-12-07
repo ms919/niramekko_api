@@ -1,7 +1,7 @@
 module Api
   module V1
     class VideosController < ApplicationController
-      before_action :logged_in?
+      before_action :filter_unauthenticated
 
       def new; end
       def create

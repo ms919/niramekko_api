@@ -9,4 +9,8 @@ class ApplicationController < ActionController::API
   def logged_in?
     session[:user_id] ? true : false
   end
+
+  def filter_unauthenticated
+    render status: :unauthorized unless logged_in?
+  end
 end
