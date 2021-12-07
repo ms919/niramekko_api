@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :videos, dependent: :nullify
   has_many :laughed_videos, dependent: :nullify
-  has_many :game_results, dependent: :destroy
+  has_many :game_results, dependent: :nullify
   has_many :user_notifications, dependent: :destroy
   has_many :hidden_videos, dependent: :destroy
 
@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   validates :uid, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
-  validates :name, length: { maximum: 15 }, on: :update
+  validates :name, length: { maximum: 100 }
 
   def self.find_or_create_from_auth(auth)
     provider = auth[:provider]
