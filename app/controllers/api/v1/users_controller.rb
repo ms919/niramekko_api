@@ -14,6 +14,29 @@ module Api
         session[:revenge_flg] = Video.filter_hidden_videos(user_id).revenge_playlists(user_id).length >= 3 unless session[:revenge_flg]
         render json: { user: user, total_score: total_score, game_results: game_results, notifications: user_notifications, revenge_flg: session[:revenge_flg] }
       end
+
+      def update
+        if current_user.update(user_params)
+          render status: :created
+        else
+          render status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        if current_user.destroy
+          reset_session
+          render status: :ok
+        else
+          render status: :unprocessable_entity
+        end
+      end
+
+      private
+
+      def user_params
+        params.require(:user).permit(:name)
+      end
     end
   end
 end
