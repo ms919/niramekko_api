@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       get 'auth/failure', to: 'auth#failure'
       post 'login', to: 'sessions#create'
       delete 'logout', to: 'sessions#destroy'
+      namespace :admin do
+        resources :videos, only: [:index, :destroy]
+        resources :users, only: [:index, :destroy]
+      end
     end
   end
 end

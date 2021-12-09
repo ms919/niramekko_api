@@ -51,3 +51,6 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-tiktok'
+
+# pagination
+gem 'kaminari'

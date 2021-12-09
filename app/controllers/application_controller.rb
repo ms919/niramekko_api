@@ -13,4 +13,8 @@ class ApplicationController < ActionController::API
   def filter_unauthenticated
     render status: :unauthorized unless logged_in?
   end
+
+  def admin?
+    render status: :forbidden unless current_user.admin?
+  end
 end
