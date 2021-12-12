@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :playlists, only: [:index]
       resources :game_results, only: [:create]
       resources :laughed_videos, only: [:create]
-      resources :hidden_videos, only: [:create]
+      resources :hidden_videos, only: [:index, :create, :destroy]
       resource :user, only: [:show, :update, :destroy]
       get 'auth/:provider/callback', to: 'auth#create'
       get 'auth/failure', to: 'auth#failure'
