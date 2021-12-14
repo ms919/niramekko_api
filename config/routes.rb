@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :laughed_videos, only: [:create]
       resources :hidden_videos, only: [:index, :create, :destroy]
       resource :user, only: [:show, :update, :destroy]
+      resources :contacts, only: [:create]
       get 'auth/:provider/callback', to: 'auth#create'
       get 'auth/failure', to: 'auth#failure'
       post 'login', to: 'sessions#create'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
       namespace :admin do
         resources :videos, only: [:index, :destroy]
         resources :users, only: [:index, :destroy]
+        resources :contacts, only: [:index, :update, :destroy]
       end
     end
   end
