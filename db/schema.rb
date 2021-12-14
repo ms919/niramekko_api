@@ -15,7 +15,15 @@ ActiveRecord::Schema.define(version: 2021_12_14_062247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-    create_table "game_results", force: :cascade do |t|
+  create_table "contacts", force: :cascade do |t|
+    t.integer "type", default: 0, null: false
+    t.integer "state", default: 0, null: false
+    t.text "message", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "game_results", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "mode", null: false
     t.float "score", null: false
