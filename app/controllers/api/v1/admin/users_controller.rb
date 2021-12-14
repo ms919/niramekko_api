@@ -5,7 +5,7 @@ module Api
         before_action :admin?
 
         def index
-          users = User.select(:id, :name, :role).order(:id).page(params[:page]).per(3)
+          users = User.select(:id, :name, :role).order(:id).page(params[:page]).per(10)
           render json: { users: users, total_pages: users.total_pages }
         end
 
