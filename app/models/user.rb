@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :game_results, dependent: :nullify
   has_many :user_notifications, dependent: :destroy
   has_many :hidden_videos, dependent: :destroy
+  has_many :latest_top_records, dependent: :destroy
 
   enum role: { general: 0, admin: 1 }
 

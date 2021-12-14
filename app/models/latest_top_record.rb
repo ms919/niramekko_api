@@ -1,0 +1,3 @@
+class LatestTopRecord < ApplicationRecord
+  belongs_to :user
+end
