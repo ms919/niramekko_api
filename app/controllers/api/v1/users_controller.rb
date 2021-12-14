@@ -8,7 +8,7 @@ module Api
         user_id = current_user.id
         user = User.select(:name, :image_url).find(user_id)
         game_results = GameResult.where(user_id: user_id).group(:title).count
-        total_score = GameResult.where(user_id: user_id).sum(:score)
+        total_score = GameResult.where(user_id: user_id).sum(:score) + LatestTopRecord.where(user_id: user_id).sum(:avg_score)
         user_notifications = UserNotification.where(user_id: user_id, read_flg: false).order(:id).pluck(:message)
         user_notifications = nil if user_notifications.length == 0
         session[:revenge_flg] = Video.filter_hidden_videos(user_id).revenge_playlists(user_id).length >= 3 unless session[:revenge_flg]
@@ -17,7 +17,7 @@ module Api
 
       def update
         if current_user.update(user_params)
-          render status: :created
+          render status: :accepted
         else
           render status: :unprocessable_entity
         end
@@ -26,7 +26,7 @@ module Api
       def destroy
         if current_user.destroy
           reset_session
-          render status: :ok
+          render status: :accepted
         else
           render status: :unprocessable_entity
         end
