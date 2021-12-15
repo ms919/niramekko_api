@@ -6,13 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   OmniAuth.config.on_failure = Proc.new { |env|
     OmniAuth::FailureEndpoint.new(env).redirect_to_failure
   }
-  provider :twitter, Rails.application.credentials.dig(:omniauth, :twitter, :api_key),
-    Rails.application.credentials.dig(:omniauth, :twitter, :api_secret),
-    {
-      authorize_params: {
-        force_login: 'true',
-      }
-    }
+  provider :twitter, Rails.application.credentials.dig(:omniauth, :twitter, :api_key), Rails.application.credentials.dig(:omniauth, :twitter, :api_secret), { authorize_params: { force_login: 'true'} }
   provider :google_oauth2, Rails.application.credentials.dig(:omniauth, :google, :client_id), Rails.application.credentials.dig(:omniauth, :google, :client_secret)
-  provider :tiktok, Rails.application.credentials.dig(:omniauth, :tiktok, :client_key), Rails.application.credentials.dig(:omniauth, :tiktok, :client_secret)
+  provider :tiktok, Rails.application.credentials.dig(:omniauth, :tiktok, :client_key), Rails.application.credentials.dig(:omniauth, :tiktok, :client_secret), { scope: 'user.info.basic' }
 end
