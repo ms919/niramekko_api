@@ -6,8 +6,7 @@ module Api
       def update
         user_notification = UserNotification.find(params[:id])
         if user_notification.update(read_flg: true)
-          user_notifications = UserNotification.where(user_id: current_user.id, read_flg: false).order(:id).select(:id, :message)
-          user_notifications = nil if user_notifications.length == 0
+          user_notifications = UserNotification.not_read_notifications(current_user.id)
           render json: user_notifications
         else
           render status: :unprocessable_entity

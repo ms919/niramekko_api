@@ -9,8 +9,7 @@ module Api
         user = User.select(:name, :image_url).find(user_id)
         game_results = GameResult.where(user_id: user_id).group(:title).count
         total_score = GameResult.where(user_id: user_id).sum(:score) + LatestTopRecord.where(user_id: user_id).sum(:avg_score)
-        user_notifications = UserNotification.where(user_id: user_id, read_flg: false).order(:id).select(:id, :message)
-        user_notifications = nil if user_notifications.length == 0
+        user_notifications = UserNotification.not_read_notifications(user_id)
         session[:revenge_flg] = Video.filter_hidden_videos(user_id).revenge_playlists(user_id).length >= 3 unless session[:revenge_flg]
         render json: { user: user, total_score: total_score, game_results: game_results, notifications: user_notifications, revenge_flg: session[:revenge_flg] }
       end
