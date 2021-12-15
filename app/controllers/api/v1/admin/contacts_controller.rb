@@ -6,7 +6,7 @@ module Api
 
         def index
           contacts = Contact.order(:id).page(params[:page]).per(10)
-          render json: { users: contacts, total_pages: contacts.total_pages }
+          render json: { contacts: contacts, total_pages: contacts.total_pages }
         end
 
         def update

@@ -13,7 +13,7 @@ module Api
       private
 
       def contact_params
-        params.require(:contact).permit(:type, :message)
+        params.require(:contact).permit(:contact_type, :message)
       end
     end
   end
