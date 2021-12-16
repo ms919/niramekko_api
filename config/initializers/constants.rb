@@ -10,9 +10,9 @@ module TITLES
   ].freeze
 
   SCORE_LEVELS = [
-    95,
-    75,
-    65,
-    40
+    450,
+    400,
+    300,
+    200
   ].freeze
 end
