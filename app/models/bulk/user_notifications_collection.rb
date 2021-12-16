@@ -7,7 +7,7 @@ class Bulk::UserNotificationsCollection < Bulk::Base
       UserNotification.new(
         user_id: value.user_id,
         format: format,
-        message: value.avg_score.ceil(1)
+        message: value.avg_score
       )
     end
   end

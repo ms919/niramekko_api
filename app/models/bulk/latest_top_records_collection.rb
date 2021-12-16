@@ -7,7 +7,7 @@ class Bulk::LatestTopRecordsCollection < Bulk::Base
       LatestTopRecord.new(
         video_id: key,
         user_id: Video.find(key).user_id,
-        avg_score: value
+        avg_score: value.ceil(1)
       )
     end
   end
