@@ -5,6 +5,8 @@ class UserNotification < ApplicationRecord
 
   scope :not_read_notifications, -> (user_id){ where(user_id: user_id, read_flg: false).order(:id).select(:id, :message, :format) }
 
-  validates :message, presence: true, length: { maximum: 50 }
+  validates :user, presence: true
+  validates :message, length: { maximum: 50 }
   validates :read_flg, inclusion: { in: [true, false] }
+  validates :format, presence: true
 end

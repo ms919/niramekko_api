@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_010522) do
 
   create_table "user_notifications", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "message", null: false
+    t.string "message"
     t.boolean "read_flg", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
