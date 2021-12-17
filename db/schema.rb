@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_15_122904) do
+ActiveRecord::Schema.define(version: 2021_12_17_010522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_122904) do
   end
 
   create_table "latest_top_records", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "video_id", null: false
     t.float "avg_score", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_122904) do
 
   create_table "user_notifications", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "message"
+    t.string "message", null: false
     t.boolean "read_flg", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

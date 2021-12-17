@@ -9,6 +9,8 @@ namespace :videos_extraction do
 			avg_score_arr = LaughedVideo.latest_laughed_videos.score_diff_order.average(:score_diff)
 			latest_top_records = Bulk::LatestTopRecordsCollection.new(avg_score_arr)
 			latest_top_records.save
+			# user_id=nilがあれば削除
+			LatestTopRecord.destroy_by(user_id: nil)
 		end
 	end
 end
