@@ -35,7 +35,12 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
   gem 'rubocop-rails'
+  # for test
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails'
 end
+
+gem 'simplecov', require: false, group: :test
 
 group :development do
   gem 'listen', '~> 3.3'
