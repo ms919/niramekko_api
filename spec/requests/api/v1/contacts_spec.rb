@@ -1,0 +1,9 @@
+require 'rails_helper'
+
+describe 'コンタクトメッセージPOST処理' do
+  it 'コンタクトメッセージがDBに登録されること' do
+    valid_params = { contact: { contact_type: :request, message: "message_text" } }
+    expect { post '/api/v1/contacts', params: valid_params }.to change(Contact, :count).by(+1)
+    expect(response.status).to eq(201)
+ end
+end
