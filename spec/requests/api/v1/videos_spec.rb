@@ -9,7 +9,7 @@ describe 'videos' do
 
   describe '#index' do
     let(:res){ JSON.parse(response.body) }
-    fit 'videos一覧が取得できること' do
+    it 'videos一覧が取得できること' do
       get '/api/v1/videos', params: { page: 1 }
       expect(res['videos'].length).to eq(1)
       expect(res['total_pages']).to eq(1)
