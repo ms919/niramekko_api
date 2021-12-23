@@ -4,7 +4,7 @@ module Api
       before_action :filter_unauthenticated
 
       def index
-        videos = Video.select(:id, :video_user, :data_video_id).where(id: HiddenVideo.select(:id).where(user_id: current_user.id)).order(:id).page(params[:page]).per(5)
+        videos = Video.select(:id, :video_user, :data_video_id).where(id: HiddenVideo.select(:video_id).where(user_id: current_user.id)).order(:id).page(params[:page]).per(5)
         render json: { videos: videos, total_pages: videos.total_pages }
       end
 
