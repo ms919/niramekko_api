@@ -6,20 +6,22 @@ describe 'user' do
   describe '#show' do
     let(:res){ JSON.parse(response.body) }
     context 'laughed_videosが2つの場合' do
+      let(:user_without_revenge){ create(:user_without_revenge) }
       it 'ログイン中のユーザー情報が返されること' do
-        login_as(create(:user_without_revenge))
+        login_as(user_without_revenge)
         get '/api/v1/user'
-        expect(res['user']['name']).to eq('user_1')
+        expect(res['user']['name']).to eq(user_without_revenge.name)
         expect(res['total_score']).to eq(0.0)
         expect(res['game_results'].length).to eq(0)
         expect(res['revenge_flg']).to eq(false)
       end
     end
     context 'laughed_videosが3つの場合' do
+      let(:user_with_revenge){ create(:user_with_revenge) }
       it 'ログイン中のユーザー情報が返されること' do
-        login_as(create(:user_with_revenge))
+        login_as(user_with_revenge)
         get '/api/v1/user'
-        expect(res['user']['name']).to eq('user_4')
+        expect(res['user']['name']).to eq(user_with_revenge.name)
         expect(res['total_score']).to eq(300.0)
         expect(res['game_results']['soil']).to eq(1)
         expect(res['revenge_flg']).to eq(true)
