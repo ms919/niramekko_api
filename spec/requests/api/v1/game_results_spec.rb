@@ -32,11 +32,14 @@ describe '#create' do
       expect(res).to eq ID[SMILE]
     end
   end
-  context 'スコアが200未満の場合' do
+  context 'スコアが200未満かつログイン中の場合' do
     let(:score){ SCORE_LEVELS[SMILE] - 0.1 }
+    let(:user){ create(:user) }
     it 'DBに登録されるゲーム結果のタイトルがLAUGHであること' do
+      login_as(user)
       expect { post '/api/v1/game_results', params: params, as: :json }.to change(GameResult, :count).by(+1)
       expect(res).to eq ID[LAUGH]
+      expect(GameResult.last.user_id).to eq(user.id)
     end
   end
 end
