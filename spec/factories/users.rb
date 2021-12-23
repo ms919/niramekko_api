@@ -12,6 +12,10 @@ FactoryBot.define do
     factory :user_with_revenge do
       laughed_videos     { [association(:laughed_video), association(:laughed_video), association(:laughed_video)] }
       game_results       { [association(:game_result, :soil)] }
+      after(:create) do |user|
+        create(:user_notification, user: user)
+        create(:user_notification, user: user, read_flg: true)
+      end
     end
   end
 end

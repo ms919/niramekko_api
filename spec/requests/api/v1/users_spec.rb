@@ -24,6 +24,7 @@ describe 'user' do
         expect(res['user']['name']).to eq(user_with_revenge.name)
         expect(res['total_score']).to eq(300.0)
         expect(res['game_results']['soil']).to eq(1)
+        expect(res['notifications'].length).to eq(1)
         expect(res['revenge_flg']).to eq(true)
       end
     end
