@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe '再生リスト作成' do
+describe '#index' do
   let(:res){ JSON.parse(response.body) }
 
   context '未ログインの場合' do

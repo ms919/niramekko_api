@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe '笑ったビデオ一覧POST処理' do
+describe '#create' do
   let(:video_list){ create_list(:video, 2) }
   let(:res){ JSON.parse(response.body) }
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 include TITLES
 
-describe '未ログイン時のゲーム結果送信' do
+describe '#create' do
   let(:params){ { game_result: { mode: :normal, score: score } } }
   let(:res){ JSON.parse(response.body) }
   context 'スコアが450以上の場合' do

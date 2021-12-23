@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'コンタクトメッセージPOST処理' do
+describe '#create' do
   it 'コンタクトメッセージがDBに登録されること' do
     valid_params = { contact: { contact_type: :request, message: "message_text" } }
     expect { post '/api/v1/contacts', params: valid_params, as: :json }.to change(Contact, :count).by(+1)
