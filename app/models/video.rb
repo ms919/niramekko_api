@@ -9,7 +9,7 @@ class Video < ApplicationRecord
   scope :playlist_order, -> { order("RANDOM()").limit(5) }
   scope :latest_top_videos, -> { where(id: LaughedVideo.select(:video_id).latest_laughed_videos.score_diff_order) }
 
-  validates :user_id, presence: true, on: :create
+  validates :user, presence: true, on: :create
   validates :video_user, presence: true, length: { maximum: 24 }  # tiktok usernameのMax
   validates :data_video_id, presence: true, length: { is: 19 }    # tiktok videoidの長さ
   validates :data_video_id, uniqueness: true
