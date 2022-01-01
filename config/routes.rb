@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :videos, only: [:index, :new, :create, :destroy]
-      resources :playlists, only: [:index]
+      resources :playlists, only: [:index, :show], param: :mode
       resources :game_results, only: [:create]
       resources :laughed_videos, only: [:create]
       resources :hidden_videos, only: [:index, :create, :destroy]
