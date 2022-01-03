@@ -6,5 +6,8 @@ FactoryBot.define do
     trait :latest_top do
 			latest_top_flg  { true }
 		end
+    trait :cannot_play do
+			cannot_play_flg  { true }
+		end
   end
 end
