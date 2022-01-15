@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :videos, only: [:index, :new, :create, :destroy]
+      resources :videos, only: [:index, :new, :create, :update, :destroy]
       resources :playlists, only: [:index, :show], param: :mode
       resources :game_results, only: [:create]
       resources :laughed_videos, only: [:create]
