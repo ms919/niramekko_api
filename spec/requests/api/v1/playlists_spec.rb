@@ -73,47 +73,4 @@ describe 'playlists' do
       end
     end
   end
-
-  describe '#show' do
-    let(:cannot_play_id){ video_ids.last }
-
-    context '未ログインの場合' do
-      let(:video_ids){ create_list(:video, 5).pluck(:id) }
-      context '通常モードの場合' do
-        it '再生不可ビデオの再生不可フラグが更新され、再生可能なものから追加取得1件の情報が返されること' do
-          new_id = create(:video).id
-          get "/api/v1/playlists/#{GameResult.modes[:normal]}", params: { cannot_play_id: cannot_play_id, video_ids: video_ids }
-          expect(Video.find(cannot_play_id).cannot_play_flg).to eq(true)
-          expect(res[0]['id']).to eq(new_id)
-        end
-      end
-    end
-
-    context 'ログイン中の場合' do
-      context '道場モードの場合' do
-        let(:hidden_video_latest_top){ create(:hidden_video, user: user, video: create(:video, :latest_top)) }
-        let(:video_ids){ create_list(:video, 5, :latest_top).pluck(:id) }
-        let(:user){ create(:user) }
-        it '再生不可ビデオの再生不可フラグが更新され、再生可能な最新ベストから再生リストが作られること' do
-          login_as(hidden_video_latest_top.user)
-          get "/api/v1/playlists/#{GameResult.modes[:dojyo]}", params: { cannot_play_id: cannot_play_id, video_ids: video_ids }
-          expect(Video.find(cannot_play_id).cannot_play_flg).to eq(true)
-          expect(res).to eq([])
-        end
-      end
-    end
-
-    context 'リベンジモードの場合' do
-      let(:hidden_video_revenge){ create(:hidden_video, user: user, video: create(:laughed_video, user_id: user.id).video) }
-      let(:video_ids){ create_list(:laughed_video, 5, user_id: user.id).pluck(:video_id) }
-      let(:user){ create(:user) }
-      it '再生不可ビデオの再生不可フラグが更新され、再生可能なlaughed_videosから再生リストが作られること' do
-        login_as(hidden_video_revenge.user)
-        new_id = create(:laughed_video, user_id: user.id).video_id
-        get "/api/v1/playlists/#{GameResult.modes[:revenge]}", params: { cannot_play_id: cannot_play_id, video_ids: video_ids }
-        expect(Video.find(cannot_play_id).cannot_play_flg).to eq(true)
-        expect(res[0]['id']).to eq(new_id)
-      end
-    end
-  end
 end
