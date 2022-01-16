@@ -5,7 +5,7 @@ module Api
         before_action :admin?
 
         def index
-          videos = Video.select(:id, :user_id, :latest_top_flg, :video_user, :data_video_id).order(:id).page(params[:page]).per(5)
+          videos = Video.select(:id, :user_id, :latest_top_flg, :video_user, :data_video_id).where(cannot_play_flg: params[:cannot_play_flg]).order(:id).page(params[:page]).per(5)
           render json: { videos: videos, total_pages: videos.total_pages }
         end
 
