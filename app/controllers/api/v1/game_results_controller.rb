@@ -12,7 +12,7 @@ module Api
         game_result.title = calc_title(game_result.score)
 
         if game_result.save!
-          render json: game_result.title_before_type_cast
+          render json: game_result.title
         else
           render status: :unprocessable_entity
         end
