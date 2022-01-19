@@ -12,7 +12,7 @@ module Api
         case params[:mode].to_i
         when GameResult.modes[:normal] then
           Video.filter_videos(user_id).playlist_order
-        when GameResult.modes[:dojyo] then
+        when GameResult.modes[:dojo] then
           Video.filter_videos(user_id).where(latest_top_flg: true).playlist_order
         when GameResult.modes[:revenge] then
           Video.filter_videos(user_id).revenge_playlists(user_id).playlist_order

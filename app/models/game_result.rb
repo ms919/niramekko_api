@@ -3,7 +3,7 @@ class GameResult < ApplicationRecord
 
   belongs_to :user, optional: true
 
-  enum mode: { normal: 0, dojyo: 1, revenge: 2 }
+  enum mode: { normal: 0, dojo: 1, revenge: 2 }
   enum title: { gold: GOLD, iron: IRON, soil: SOIL, smile: SMILE, laugh: LAUGH}
 
   validates :mode, presence: true

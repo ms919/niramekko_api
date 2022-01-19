@@ -10,8 +10,8 @@ class Video < ApplicationRecord
   scope :latest_top_videos, -> { where(id: LaughedVideo.select(:video_id).latest_laughed_videos.score_diff_order) }
 
   validates :user, presence: true, on: :create
-  validates :video_user, presence: true, length: { maximum: 24 }  # tiktok usernameのMax
-  validates :data_video_id, presence: true, length: { is: 19 }    # tiktok videoidの長さ
+  validates :video_user, presence: true, length: { maximum: 24 }  # TikTok usernameのMax
+  validates :data_video_id, presence: true, length: { is: 19 }    # TikTok videoidの長さ
   validates :data_video_id, uniqueness: true
   validates :latest_top_flg, inclusion: {in: [true, false]}
   validates :cannot_play_flg, inclusion: {in: [true, false]}

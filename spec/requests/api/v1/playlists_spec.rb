@@ -22,7 +22,7 @@ describe 'playlists' do
       end
       context '道場モードの場合' do
         it '最新ベストから再生リストが作られること' do
-          get '/api/v1/playlists', params: { mode: GameResult.modes[:dojyo] }
+          get '/api/v1/playlists', params: { mode: GameResult.modes[:dojo] }
           expect(res.length).to eq(3)
           expect(res.find{ |hash| hash['latest_top_flg'] == true}).not_to eq nil
           expect(res.find{ |hash| hash['latest_top_flg'] == false}).to eq nil
@@ -52,7 +52,7 @@ describe 'playlists' do
       context '道場モードの場合' do
         it 'hidden_video以外で最新ベストから再生リストが作られること' do
           login_as(hidden_video_latest_top.user)
-          get '/api/v1/playlists', params: { mode: GameResult.modes[:dojyo] }
+          get '/api/v1/playlists', params: { mode: GameResult.modes[:dojo] }
           expect(res.length).to eq(3)
           expect(res.find{ |hash| hash['latest_top_flg'] == true}).not_to eq nil
           expect(res.find{ |hash| hash['latest_top_flg'] == false}).to eq nil
