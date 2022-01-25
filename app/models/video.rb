@@ -17,4 +17,8 @@ class Video < ApplicationRecord
   validates :data_video_id, uniqueness: true
   validates :latest_top_flg, inclusion: {in: [true, false]}
   validates :cannot_play_flg, inclusion: {in: [true, false]}
+
+  def self.can_create_revenge_playlists?(user_id)
+    filter_videos(user_id).revenge_playlists(user_id).length >= MIN
+  end
 end
