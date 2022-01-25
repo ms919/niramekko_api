@@ -16,3 +16,10 @@ module TITLES
     200
   ].freeze
 end
+
+module PLAYLISTS
+  LENGTH = [
+    MIN = 3,
+    MAX = 5
+  ].freeze
+end

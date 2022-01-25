@@ -1,7 +1,9 @@
+include PLAYLISTS
+
 namespace :videos_extraction do
 	desc 'Update the latest laughed at video.'
 	task update_latest_top: :environment do
-		if LaughedVideo.select(:video_id).latest_laughed_videos.length >= 3
+		if LaughedVideo.select(:video_id).latest_laughed_videos.length >= MIN
 			# latest_top_flg更新
 			Video.where(latest_top_flg: true).update(latest_top_flg: false)
 			Video.latest_top_videos.update(latest_top_flg: true)
