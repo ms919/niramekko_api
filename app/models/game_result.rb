@@ -9,4 +9,24 @@ class GameResult < ApplicationRecord
   validates :mode, presence: true
   validates :title, presence: true
   validates :score, presence: true, numericality: true
+
+  after_initialize do
+    self.title = calc_title(self.score)
+  end
+
+  private
+
+  def calc_title(score)
+    if score >= SCORE_LEVELS[GOLD]
+      return GOLD
+    elsif score >= SCORE_LEVELS[IRON]
+      return IRON
+    elsif score >= SCORE_LEVELS[SOIL]
+      return SOIL
+    elsif score >= SCORE_LEVELS[SMILE]
+      return SMILE
+    elsif score < SCORE_LEVELS[SMILE]
+      return LAUGH
+    end
+  end
 end

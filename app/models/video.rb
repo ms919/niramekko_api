@@ -21,4 +21,15 @@ class Video < ApplicationRecord
   def self.can_create_revenge_playlists?(user_id)
     filter_videos(user_id).revenge_playlists(user_id).length >= MIN
   end
+
+  def self.select_videos(mode, user_id)
+    case mode
+    when GameResult.modes[:normal] then
+      filter_videos(user_id).playlist_order
+    when GameResult.modes[:dojo] then
+      filter_videos(user_id).where(latest_top_flg: true).playlist_order
+    when GameResult.modes[:revenge] then
+      filter_videos(user_id).revenge_playlists(user_id).playlist_order
+    end
+  end
 end
