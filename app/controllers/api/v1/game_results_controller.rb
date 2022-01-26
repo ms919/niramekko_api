@@ -1,7 +1,6 @@
 module Api
   module V1
     class GameResultsController < ApplicationController
-
       def create
         if logged_in?
           game_result = current_user.game_results.build(game_results_params)

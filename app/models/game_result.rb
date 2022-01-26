@@ -11,22 +11,22 @@ class GameResult < ApplicationRecord
   validates :score, presence: true, numericality: true
 
   after_initialize do
-    self.title = calc_title(self.score)
+    set_title(self.score)
   end
 
   private
 
-  def calc_title(score)
+  def set_title(score)
     if score >= SCORE_LEVELS[GOLD]
-      return GOLD
+      self.gold!
     elsif score >= SCORE_LEVELS[IRON]
-      return IRON
+      self.iron!
     elsif score >= SCORE_LEVELS[SOIL]
-      return SOIL
+      self.soil!
     elsif score >= SCORE_LEVELS[SMILE]
-      return SMILE
+      self.smile!
     elsif score < SCORE_LEVELS[SMILE]
-      return LAUGH
+      self.laugh!
     end
   end
 end
