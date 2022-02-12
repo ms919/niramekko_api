@@ -1,7 +1,7 @@
 module Api
   module V1
     class HiddenVideosController < ApplicationController
-      before_action :filter_unauthenticated
+      before_action :filter_authenticated
 
       def index
         videos = Video.select(:id, :video_user, :data_video_id).where(id: HiddenVideo.select(:video_id).where(user_id: current_user.id)).order(:id).page(params[:page]).per(5)

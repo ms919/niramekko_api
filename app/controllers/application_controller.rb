@@ -2,19 +2,16 @@ class ApplicationController < ActionController::API
   protected
 
   def current_user
-    return unless session[:user_id]
-    User.find(session[:user_id])
+    User.find(session[:user_id]) if session[:user_id]
   end
 
-  def logged_in?
-    session[:user_id] ? true : false
-  end
+  def logged_in? = !!session[:user_id]
 
-  def filter_unauthenticated
+  def filter_authenticated
     render status: :unauthorized unless logged_in?
   end
 
-  def admin?
+  def filter_admin
     render status: :forbidden unless current_user.admin?
   end
 end

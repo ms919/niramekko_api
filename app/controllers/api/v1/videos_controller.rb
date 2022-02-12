@@ -1,7 +1,7 @@
 module Api
   module V1
     class VideosController < ApplicationController
-      before_action :filter_unauthenticated, except: :update
+      before_action :filter_authenticated, only: %i(index new create destroy)
 
       def index
         videos = Video.select(:id, :video_user, :data_video_id).where(user_id: current_user.id).order(:id).page(params[:page]).per(5)
@@ -20,7 +20,8 @@ module Api
       end
 
       def update
-        if Video.find(params[:id]).update(cannot_play_flg: true)
+        video = Video.find(params[:id])
+        if video.update(cannot_play_flg: true)
           render status: :accepted
         else
           render status: :unprocessable_entity

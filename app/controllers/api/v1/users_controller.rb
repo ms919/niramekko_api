@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :filter_unauthenticated
+      before_action :filter_authenticated
 
       def show
         # userページ表示に必要な情報を集める
@@ -10,7 +10,7 @@ module Api
         game_results = GameResult.where(user_id: user_id).group(:title).count
         total_score = GameResult.where(user_id: user_id).sum(:score) + LatestTopRecord.where(user_id: user_id).sum(:avg_score)
         user_notifications = UserNotification.not_read_notifications(user_id)
-        session[:revenge_flg] = Video.can_create_revenge_playlists?(user_id) unless session[:revenge_flg]
+        session[:revenge_flg] ||= Video.can_create_revenge_playlists?(user_id)
         render json: { user: user, total_score: total_score.ceil(1), game_results: game_results, notifications: user_notifications, revenge_flg: session[:revenge_flg] }
       end
 

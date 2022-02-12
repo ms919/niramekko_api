@@ -1,7 +1,7 @@
 module Api
   module V1
     class SessionsController < ApplicationController
-      before_action :filter_unauthenticated, only: :destroy
+      before_action :filter_authenticated, only: :destroy
 
       def create
         t = Time.current

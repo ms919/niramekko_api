@@ -2,7 +2,7 @@ module Api
   module V1
     module Admin
       class UsersController < ApplicationController
-        before_action :admin?
+        before_action :filter_admin
 
         def index
           users = User.select(:id, :name, :role).order(:id).page(params[:page]).per(10)

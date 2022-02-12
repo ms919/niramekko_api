@@ -2,7 +2,7 @@ module Api
   module V1
     module Admin
       class ContactsController < ApplicationController
-        before_action :admin?
+        before_action :filter_admin
 
         def index
           contacts = Contact.order(:id).page(params[:page]).per(10)
